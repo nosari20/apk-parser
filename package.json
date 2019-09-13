@@ -1,0 +1,20 @@
+{
+  "name": "apk-parser",
+  "version": "1.0.0",
+  "description": "APK parser using TypeScript",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc -w",
+    "prestart": "npm run build",
+    "start": "node ./example/index.js",
+    "test": "node ./example/index.js"
+  },
+  "author": "Florent NOSARI",
+  "license": "ISC",
+  "dependencies": {
+    "@types/node": "^12.7.5",
+    "binary-xml": "0.0.1",
+    "node-stream-zip": "^1.8.2"
+  }
+}
