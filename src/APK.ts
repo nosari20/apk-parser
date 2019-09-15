@@ -1,4 +1,5 @@
 import { MANIFEST } from "./MANIFEST";
+import { ResourcesARSC } from "./ResourcesARSC";
 
 const StreamZip = require("node-stream-zip");
 
@@ -6,6 +7,9 @@ export class APK {
 
     private zip: any;
     private entries: any[] = [];
+
+    private _manifest: MANIFEST = null;
+    private _resources: ResourcesARSC = null;
 
     constructor(path: string) {
         this.zip = new StreamZip({
@@ -40,10 +44,19 @@ export class APK {
 
     public getManifest() {
         const promise = new Promise<any>((resolve, reject) => {
-            const manifest = new MANIFEST(this.zip.entryDataSync(MANIFEST.getPath()));
-            resolve(manifest);
-        });   
-        
+            if(this._manifest == null){
+                this._manifest = new MANIFEST(this.zip.entryDataSync(MANIFEST.getPath()));            }
+            resolve(this._manifest);
+        });       
+        return promise;
+    }
+
+    public getResources(){
+        const promise = new Promise<any>((resolve, reject) => {
+            if(this._resources == null){
+                this._resources = new ResourcesARSC(this.zip.entryDataSync(ResourcesARSC.getPath()));            }
+            resolve(this._resources);
+        });       
         return promise;
     }
 
